@@ -1,0 +1,30 @@
+name: Feature request
+description: Propose a new story, metric, adapter, or visual experience.
+title: "[Idea]: "
+labels: [enhancement]
+body:
+  - type: textarea
+    id: story
+    attributes:
+      label: What league story should this tell?
+      description: Start with the question a commissioner or manager wants answered.
+    validations:
+      required: true
+  - type: textarea
+    id: data
+    attributes:
+      label: What data supports it?
+      description: Describe required fields, seasons, platforms, and missing-data behavior.
+    validations:
+      required: true
+  - type: textarea
+    id: experience
+    attributes:
+      label: What should the experience feel like?
+      description: Link references, sketch the interaction, or describe the shareable moment.
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: Contribution intent
+      options:
+        - label: I am willing to help implement or test this idea.

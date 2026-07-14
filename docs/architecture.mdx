@@ -1,0 +1,40 @@
+---
+title: "Architecture"
+description: "How validated league records become static season annuals."
+icon: "diagram-project"
+---
+
+## Pipeline
+
+```mermaid
+flowchart LR
+  raw[Raw ESPN responses] --> warehouse[Validated DuckDB archive]
+  warehouse --> generator[Story generator]
+  generator --> json[Compact wrapped.json]
+  json --> routes[Next.js season routes]
+  routes --> export[Static HTML export]
+  export --> pages[GitHub Pages]
+```
+
+## Runtime boundary
+
+The public experience is deliberately read-only and serverless. `app/data/wrapped.json` is imported during the build, each season in `generateStaticParams()` becomes an HTML route, and GitHub Pages serves the result from its CDN.
+
+This boundary provides:
+
+- no public credentials;
+- no database attack surface;
+- deterministic builds;
+- permanent season URLs;
+- near-zero hosting cost.
+
+## Application surfaces
+
+| Path | Responsibility |
+| --- | --- |
+| `app/page.tsx` | Annual archive and project entry point |
+| `app/wrapped/[season]/page.tsx` | Static route contract for each season |
+| `app/components/` | Editorial sections, cards, tables, and navigation |
+| `app/lib/data.ts` | Typed story accessors and formatting helpers |
+| `app/data/wrapped.json` | Generated, presentation-ready league history |
+| `scripts/generate_wrapped_data.py` | Reproducible warehouse-to-story transformation |

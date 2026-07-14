@@ -1,0 +1,42 @@
+---
+title: "Quickstart"
+description: "Run AFFL Wrapped locally and reproduce the Pages artifact."
+icon: "rocket"
+---
+
+## Requirements
+
+- Node.js 22 or newer
+- npm 10 or newer
+
+## Install
+
+```bash
+git clone https://github.com/rdsciv/AFFL_Wrapped.git
+cd AFFL_Wrapped
+npm install
+npm run dev
+```
+
+The development server starts at `http://localhost:3000`.
+
+## Validate
+
+```bash
+npm run lint
+npm test
+```
+
+`npm test` builds the GitHub Pages export and confirms that all twelve annual routes exist, internal links use the repository base path, and representative story sections render.
+
+## Build for GitHub Pages
+
+```bash
+npm run build:pages
+```
+
+The static site is written to `out/`. Pushes to `main` run the same build through GitHub Actions and deploy automatically.
+
+<Note>
+  The repository base path is enabled only when `GITHUB_PAGES=true`, so local development stays at `/` while the production site works under `/AFFL_Wrapped/`.
+</Note>

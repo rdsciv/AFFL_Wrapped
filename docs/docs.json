@@ -1,0 +1,41 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "AFFL Wrapped",
+  "description": "Build cinematic, source-backed fantasy league history.",
+  "colors": {
+    "primary": "#E63B2E",
+    "light": "#1E56D8",
+    "dark": "#F2C84B"
+  },
+  "favicon": "/favicon.svg",
+  "navigation": {
+    "groups": [
+      {
+        "group": "Start",
+        "pages": ["index", "quickstart"]
+      },
+      {
+        "group": "System",
+        "pages": ["architecture", "data-model", "metrics"]
+      }
+    ]
+  },
+  "navbar": {
+    "links": [
+      {
+        "label": "Live archive",
+        "href": "https://rdsciv.github.io/AFFL_Wrapped/"
+      },
+      {
+        "label": "GitHub",
+        "href": "https://github.com/rdsciv/AFFL_Wrapped"
+      }
+    ]
+  },
+  "footer": {
+    "socials": {
+      "github": "https://github.com/rdsciv/AFFL_Wrapped"
+    }
+  }
+}

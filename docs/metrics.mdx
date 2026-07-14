@@ -1,0 +1,43 @@
+---
+title: "Metric definitions"
+description: "Reproduce power, luck, matchup awards, and player impact."
+icon: "chart-column"
+---
+
+## All-play expected wins
+
+For each team-week, compare that team's score with every other score in the league:
+
+```text
+weekly expected wins = (scores beaten + 0.5 x scores tied) / (teams - 1)
+season expected wins = sum(weekly expected wins)
+```
+
+This expresses schedule-neutral strength on the same scale as actual wins.
+
+## Luck
+
+```text
+luck = actual wins - all-play expected wins
+```
+
+Positive values indicate a team converted its weekly scoring into more wins than expected. Negative values indicate the opposite. Luck is descriptive, not causal: it captures schedule outcomes, not managerial skill.
+
+## Matchup awards
+
+- **Biggest Blowout:** largest absolute score margin.
+- **Closest Nail-Biter:** smallest absolute score margin.
+- **Scoreboard Meltdown:** largest combined matchup score.
+- **Pillow Fight:** smallest positive combined matchup score.
+
+## Carried the team
+
+```text
+carry share = player season points for team / team points for
+```
+
+The award identifies the largest player share of a team's official season scoring total.
+
+## Draft and waiver spotlights
+
+Draft spotlights rank drafted players by recorded season scoring. Undrafted impact identifies high-scoring player IDs absent from that season's draft table. These modules appear only when the source coverage supports the distinction.

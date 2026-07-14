@@ -1,0 +1,44 @@
+name: Bug report
+description: Report a broken route, incorrect story, or visual regression.
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for making the archive more trustworthy.
+  - type: dropdown
+    id: surface
+    attributes:
+      label: Surface
+      options:
+        - Archive homepage
+        - Season annual
+        - Metric or historical result
+        - Mobile or responsive layout
+        - Documentation
+        - Build or deployment
+    validations:
+      required: true
+  - type: input
+    id: season
+    attributes:
+      label: Season or route
+      placeholder: "2025 or /wrapped/2025"
+  - type: textarea
+    id: observed
+    attributes:
+      label: What happened?
+      description: Include the exact value, layout, or behavior you observed.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect?
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence or screenshots
+      description: Add source context, browser details, or screenshots when relevant.

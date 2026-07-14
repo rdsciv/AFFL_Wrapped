@@ -9,8 +9,6 @@ const nextConfig: NextConfig = {
         basePath: "/AFFL_Wrapped",
         assetPrefix: "/AFFL_Wrapped/",
         trailingSlash: true,
-        // The Pages export does not include the Cloudflare Worker entrypoint.
-        typescript: { ignoreBuildErrors: true },
       }
     : {}),
 };

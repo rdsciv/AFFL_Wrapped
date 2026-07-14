@@ -1,0 +1,36 @@
+---
+title: "Data model"
+description: "Coverage, provenance, and the public story contract."
+icon: "database"
+---
+
+## Historical coverage
+
+| Dataset | Rows | Coverage |
+| --- | ---: | --- |
+| Seasons | 12 | 2014-2025 |
+| Team-seasons | 138 | Standings, ownership, scoring, activity |
+| Matchups | 1,128 | Regular season and playoffs |
+| Team-week scores | 2,298 | Score, opponent, result, phase |
+| Lineup records | 20,548 | Player, team, week, points, position |
+| Draft picks | 2,124 | ESPN-supported seasons |
+| Transactions | 7,487 | Counters for all years; event detail from 2018 |
+
+## Public story contract
+
+Each season object contains:
+
+- champion, runner-up, and title game;
+- league pulse and activity totals;
+- all-play power standings and luck leaders;
+- four matchup awards;
+- season and single-game player impact;
+- draft and undrafted spotlights where supported;
+- one summary card per team;
+- explicit coverage metadata.
+
+## Provenance limits
+
+ESPN does not return complete player-level draft and event-level transaction history before 2018. Older annuals still include validated standings, scores, lineups, acquisition counters, and team outcomes. The interface labels the narrower source coverage instead of presenting inferred events as facts.
+
+One 2016 season aggregate differs from ESPN's internal display by nine points; the source snapshots and normalized calculations are retained and documented in the private validation archive.

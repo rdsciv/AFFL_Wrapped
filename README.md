@@ -1,98 +1,139 @@
-# vinext-starter
+<div align="center">
+  <a href="https://rdsciv.github.io/AFFL_Wrapped/">
+    <img src="./public/media/affl-hero.svg" alt="AFFL Wrapped: the league history engine" width="100%" />
+  </a>
+</div>
 
-A clean full-stack starter running on
-[vinext](https://github.com/cloudflare/vinext), with optional Cloudflare D1 and
-Drizzle support.
+<div align="center">
+  <br />
+  <a href="https://github.com/rdsciv/AFFL_Wrapped/actions/workflows/deploy-pages.yml"><img src="https://github.com/rdsciv/AFFL_Wrapped/actions/workflows/deploy-pages.yml/badge.svg" alt="Deploy status" /></a>
+  <a href="https://github.com/rdsciv/AFFL_Wrapped/actions/workflows/quality.yml"><img src="https://github.com/rdsciv/AFFL_Wrapped/actions/workflows/quality.yml/badge.svg" alt="Quality checks" /></a>
+  <a href="./LICENSE"><img src="https://img.shields.io/github/license/rdsciv/AFFL_Wrapped?color=e63b2e" alt="MIT license" /></a>
+  <a href="https://github.com/rdsciv/AFFL_Wrapped/stargazers"><img src="https://img.shields.io/github/stars/rdsciv/AFFL_Wrapped?style=flat&color=f2c84b" alt="GitHub stars" /></a>
+  <a href="https://github.com/rdsciv/AFFL_Wrapped"><img src="https://img.shields.io/badge/seasons-12-1e56d8" alt="12 seasons" /></a>
+</div>
 
-## Prerequisites
+<h3 align="center">Twelve seasons of fantasy football history, rebuilt as a cinematic data story.</h3>
 
-- Node.js `>=22.13.0`
+<p align="center">
+  <a href="https://rdsciv.github.io/AFFL_Wrapped/"><strong>Explore the live archive</strong></a>
+  &nbsp;&middot;&nbsp;
+  <a href="./docs/index.mdx">Read the docs</a>
+  &nbsp;&middot;&nbsp;
+  <a href="https://github.com/rdsciv/AFFL_Wrapped/issues/new?template=feature_request.yml">Request a feature</a>
+</p>
 
-## Quick Start
+<div align="center">
+  <img src="./public/media/affl-demo.gif" alt="Animated tour of AFFL Wrapped" width="960" />
+</div>
+
+## Not another standings table
+
+Most fantasy history tools archive results. AFFL Wrapped reconstructs the season.
+
+Each annual turns raw ESPN league records into a narrative experience: championship context, all-play power, schedule luck, matchup superlatives, player impact, draft returns, undrafted gems, and a final card for every franchise. It is an opinionated reference implementation for anyone who believes a long-running league deserves more than a spreadsheet.
+
+| Signal | Coverage | What it unlocks |
+| --- | ---: | --- |
+| Seasons | **2014-2025** | One shareable annual per year |
+| Team-seasons | **138** | Finishes, records, points, power, and luck |
+| Matchups | **1,128** | Blowouts, nail-biters, fireworks, and title games |
+| Lineup records | **20,548** | Player leaders, single-game peaks, and carry share |
+| Transactions | **7,487** | Activity context and post-2018 event analysis |
+| Data checks | **0 core failures** | Audited season and route generation |
+
+## The experience
+
+- **Season annuals**: twelve editorially designed routes, not a generic dashboard.
+- **Power without schedule bias**: all-play expected wins reveal who was actually strongest.
+- **Luck with a definition**: actual wins minus expected wins, calculated week by week.
+- **Games worth remembering**: title games, biggest blowouts, closest finishes, and combined-score extremes.
+- **Player impact**: scoring leaders, weekly eruptions, carry share, draft returns, and waiver gems.
+- **Honest provenance**: pre-2018 ESPN draft and event-level transaction limits are disclosed in-product.
+- **Static by design**: no database, secret, server, or account is required to explore the archive.
+
+## Architecture
+
+```mermaid
+flowchart LR
+  A["Validated ESPN archive"] --> B["DuckDB history model"]
+  B --> C["Python story generator"]
+  C --> D["Compact season JSON"]
+  D --> E["Next.js annual routes"]
+  E --> F["Static export"]
+  F --> G["GitHub Pages"]
+```
+
+The public site ships only the compact, presentation-ready season stories. Raw API responses, private cookies, and the full historical database are never committed.
+
+## Quick start
 
 ```bash
+git clone https://github.com/rdsciv/AFFL_Wrapped.git
+cd AFFL_Wrapped
 npm install
 npm run dev
-npm run build
 ```
 
-This starter does not use `wrangler.jsonc`.
+Open `http://localhost:3000`. To reproduce the exact GitHub Pages artifact:
 
-## Included Shape
-
-- edit site code under `app/`
-- `.openai/hosting.json` declares optional Sites D1 and R2 bindings
-- `vite.config.ts` simulates declared bindings for local development
-- `db/schema.ts` starts intentionally empty
-- `examples/d1/` contains an optional D1 example surface
-- `drizzle.config.ts` supports local migration generation when needed
-
-## Workspace Auth Headers
-
-OpenAI workspace sites can read the current user's email from
-`oai-authenticated-user-email`.
-
-SIWC-authenticated workspace sites may also receive
-`oai-authenticated-user-full-name` when the user's SIWC profile has a non-empty
-`name` claim. The full-name value is percent-encoded UTF-8 and is accompanied by
-`oai-authenticated-user-full-name-encoding: percent-encoded-utf-8`.
-
-Treat the full name as optional and fall back to email when it is absent:
-
-```tsx
-import { headers } from "next/headers";
-
-export default async function Home() {
-  const requestHeaders = await headers();
-  const email = requestHeaders.get("oai-authenticated-user-email");
-  const encodedFullName = requestHeaders.get("oai-authenticated-user-full-name");
-  const fullName =
-    encodedFullName &&
-    requestHeaders.get("oai-authenticated-user-full-name-encoding") ===
-      "percent-encoded-utf-8"
-      ? decodeURIComponent(encodedFullName)
-      : null;
-
-  const displayName = fullName ?? email;
-  // ...
-}
+```bash
+npm test
 ```
 
-## Optional Dispatch-Owned ChatGPT Sign-In
+That command creates the static export and verifies the archive page, all twelve annual routes, repository-safe asset paths, and representative story sections.
 
-Import the ready-to-use helpers from `app/chatgpt-auth.ts` when the site needs
-optional or required ChatGPT sign-in:
+## Repository map
 
-- Use `getChatGPTUser()` for optional signed-in UI.
-- Use `requireChatGPTUser(returnTo)` for server-rendered pages that should send
-  anonymous visitors through Sign in with ChatGPT.
-- Use `chatGPTSignInPath(returnTo)` and `chatGPTSignOutPath(returnTo)` for
-  browser links or actions.
-- Pass a same-origin relative `returnTo` path for the destination after sign-in
-  or sign-out. The helper validates and safely encodes it.
-- Mark protected pages with `export const dynamic = "force-dynamic"` because
-  they depend on per-request identity headers.
+```text
+AFFL_Wrapped/
+├── app/        # Routes, components, styles, and compact season stories
+├── docs/       # Mintlify-ready product and metric documentation
+├── public/     # Brand graphics, animated demo, and favicon
+├── scripts/    # Reproducible data and README asset generators
+├── tests/      # Static-export contract tests
+└── .github/    # CI, Pages, issue forms, and contributor automation
+```
 
-Dispatch owns `/signin-with-chatgpt`, `/signout-with-chatgpt`, `/callback`, the
-OAuth cookies, and identity header injection. Do not implement app routes for
-those reserved paths. Routes that do not import and call the helper remain
-anonymous-compatible.
+## Documentation
 
-SIWC establishes identity only; it does not prove workspace membership. Use the
-Sites hosting platform's access policy controls for workspace-wide restrictions,
-or enforce explicit server-side membership or allowlist checks.
+The `docs/` directory is ready for Mintlify and useful directly on GitHub:
 
-Use SIWC for account pages, user-specific dashboards, saved records, and write
-actions tied to the current ChatGPT user. Leave public content anonymous.
+- [Start here](./docs/index.mdx)
+- [Run locally](./docs/quickstart.mdx)
+- [Understand the architecture](./docs/architecture.mdx)
+- [Read every metric definition](./docs/metrics.mdx)
+- [Inspect data coverage and caveats](./docs/data-model.mdx)
 
-## Useful Commands
+## Roadmap
 
-- `npm run dev`: start local development
-- `npm run build`: verify the vinext build output
-- `npm test`: build the starter and verify its rendered loading skeleton
-- `npm run db:generate`: generate Drizzle migrations after schema changes
+- [ ] Owner identity resolution across renamed franchises
+- [ ] Head-to-head rivalry stories and all-time franchise pages
+- [ ] Championship roster anatomy and multi-ring player index
+- [ ] Share-card export for every team-season
+- [ ] Adapter interface for Sleeper and Yahoo histories
+- [ ] Automated annual refresh after each fantasy season
 
-## Learn More
+See the [open issues](https://github.com/rdsciv/AFFL_Wrapped/issues) or propose the next story module.
 
-- [vinext Documentation](https://github.com/cloudflare/vinext)
-- [Drizzle D1 Guide](https://orm.drizzle.team/docs/get-started/d1-new)
+## Star history
+
+If this project helps you rethink league history, a star helps other commissioners find it.
+
+<div align="center">
+  <a href="https://star-history.com/#rdsciv/AFFL_Wrapped&Date">
+    <img src="https://api.star-history.com/svg?repos=rdsciv/AFFL_Wrapped&type=Date" alt="Star history chart" width="720" />
+  </a>
+</div>
+
+## Contributing
+
+Ideas, metric critiques, visual refinements, and new platform adapters are welcome. Read [CONTRIBUTING.md](./CONTRIBUTING.md), use the issue forms, and keep changes focused. Every pull request runs linting, a full static export, and route contract tests.
+
+## License
+
+Released under the [MIT License](./LICENSE). League names and historical results remain the property of their respective participants and platforms.
+
+---
+
+<p align="center"><strong>Built for the arguments that never end.</strong></p>
