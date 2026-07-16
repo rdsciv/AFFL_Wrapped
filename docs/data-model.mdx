@@ -14,7 +14,9 @@ icon: "database"
 | Team-week scores | 2,298 | Score, opponent, result, phase |
 | Lineup records | 20,548 | Player, team, week, points, position |
 | Draft picks | 2,124 | ESPN-supported seasons |
-| Transactions | 7,487 | Counters for all years; event detail from 2018 |
+| Executed transaction items | 8,037 | Adds and drops from 2018-2025 |
+| Inferred roster movements | 617 | Confidence-scored transitions from 2018-2025 |
+| Fantasy Genius modules | 84 | 14 Wrapped modules for each season from 2020-2025 |
 
 ## Public story contract
 
@@ -27,10 +29,14 @@ Each season object contains:
 - season and single-game player impact;
 - draft and undrafted spotlights where supported;
 - one summary card per team;
+- advanced management, roster-origin, injury, age, upset, honor, and pickup graphs where supported;
+- official activity counters plus event-level acquisition value;
 - explicit coverage metadata.
 
 ## Provenance limits
 
-ESPN does not return complete player-level draft and event-level transaction history before 2018. Older annuals still include validated standings, scores, lineups, acquisition counters, and team outcomes. The interface labels the narrower source coverage instead of presenting inferred events as facts.
+ESPN does not return complete player-level draft and event-level transaction history before 2018. Older annuals still include validated standings, scores, lineups, acquisition counters, and team outcomes. Fantasy Genius Wrapped enrichment is available for 2020-2025. The interface labels narrower source coverage instead of presenting inferred events as facts.
+
+The retrieved ESPN event feed contains free-agent and waiver events but no direct trade event type. Official trade totals remain available through team counters; possible roster-to-roster player movements are displayed separately with a 75% confidence label.
 
 One 2016 season aggregate differs from ESPN's internal display by nine points; the source snapshots and normalized calculations are retained and documented in the private validation archive.

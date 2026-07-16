@@ -41,3 +41,21 @@ The award identifies the largest player share of a team's official season scorin
 ## Draft and waiver spotlights
 
 Draft spotlights rank drafted players by recorded season scoring. Undrafted impact identifies high-scoring player IDs absent from that season's draft table. These modules appear only when the source coverage supports the distinction.
+
+## Expected fantasy points added
+
+```text
+xFP added (4W) = sum of ESPN weekly projections during the first four scoring periods after an executed add
+```
+
+The window stops when the player leaves the destination roster. Actual starter points use the same scoring periods and exclude bench and injured-reserve slots. A fixed horizon keeps early- and late-season pickups comparable.
+
+Projection coverage is always reported. Missing weekly projections remain null and are excluded from xFP totals rather than converted to zero.
+
+## Transaction grains
+
+- **Official adds, drops, and trades** are season-level ESPN team counters for 2014-2025.
+- **Executed add/drop items** are event-level ESPN records available from 2018 onward.
+- **Inferred player movements** are direct roster-to-roster snapshot transitions at 75% confidence. They are displayed separately and are not labeled as official trades.
+
+Official counters and event items answer different questions, so their totals are not expected to reconcile one-for-one in every season.

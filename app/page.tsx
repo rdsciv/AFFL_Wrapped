@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowIcon, Mark, TrophyIcon } from "./components/Mark";
 import { SiteHeader } from "./components/SiteHeader";
+import { advanced } from "./lib/advanced";
 import { seasons, stories } from "./lib/data";
 
 export const metadata: Metadata = {
@@ -30,11 +31,25 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="lab-entry section-pad">
+        <div className="lab-entry-copy reveal">
+          <span className="eyebrow">New / Front-office intelligence</span>
+          <h2>The transaction lab</h2>
+          <p>Search every covered add and drop, compare expected points with actual starter production, and inspect inferred roster-to-roster movement without confusing it for official trade history.</p>
+          <Link href="/transactions" className="primary-link">Open the ledger <ArrowIcon /></Link>
+        </div>
+        <div className="lab-entry-stats reveal">
+          <article><span>Official counters</span><strong>2014-25</strong></article>
+          <article><span>Executed items</span><strong>{advanced.transactions.length.toLocaleString()}</strong></article>
+          <article><span>Wrapped modules</span><strong>14</strong></article>
+        </div>
+      </section>
+
       <section className="annuals section-pad">
         <div className="annuals-heading">
           <span className="eyebrow">Choose a volume</span>
           <h2>The annuals</h2>
-          <p>Each season is rebuilt from the AFFL archive with the same power, luck, matchup, player, and team-level lens.</p>
+          <p>Each season is rebuilt from the AFFL archive. The 2020-2025 annuals add the complete 14-module advanced Wrapped suite.</p>
         </div>
         <div className="annual-grid">
           {seasons.map((season, index) => {

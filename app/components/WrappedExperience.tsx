@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { formatPoints, seasons, signed, type SeasonStory } from "../lib/data";
 import { ArrowIcon, TrophyIcon } from "./Mark";
+import { AdvancedWrapped } from "./AdvancedWrapped";
 import { SeasonRail } from "./SeasonRail";
 import { SiteHeader } from "./SiteHeader";
 
@@ -248,8 +249,10 @@ export function WrappedExperience({ story }: { story: SeasonStory }) {
         <p className="coverage-note">Source note: {story.coverage.note}</p>
       </section>
 
+      <AdvancedWrapped season={story.season} />
+
       <section className="teams-section section-pad" id="teams">
-        <SectionIntro index="07" kicker="Every manager gets a page" title="Team roll call" copy="Final finish, actual record, all-play strength, and schedule luck for every AFFL franchise in the season." />
+        <SectionIntro index={story.season >= 2020 ? "13" : "08"} kicker="Every manager gets a page" title="Team roll call" copy="Final finish, actual record, all-play strength, and schedule luck for every AFFL franchise in the season." />
         <TeamArchive story={story} />
       </section>
 
@@ -258,6 +261,7 @@ export function WrappedExperience({ story }: { story: SeasonStory }) {
         <div className="footer-nav">
           {older && <Link href={`/wrapped/${older}`}><span>Previous season</span><strong>{older}</strong></Link>}
           {newer && <Link href={`/wrapped/${newer}`}><span>Next season</span><strong>{newer}</strong></Link>}
+          <Link href="/transactions"><span>Front-office data</span><strong>Moves</strong></Link>
           <Link href="/"><span>All seasons</span><strong>Archive</strong></Link>
         </div>
         <div className="footer-fine"><span>AFFL / League 51418</span><span>Historical data through 2025</span></div>

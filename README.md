@@ -1,6 +1,6 @@
 <div align="center">
   <a href="https://rdsciv.github.io/AFFL_Wrapped/">
-    <img src="./public/media/affl-hero.svg" alt="AFFL Wrapped: the league history engine" width="100%" />
+    <img src="./public/og.png" alt="AFFL Wrapped: the league history engine" width="100%" />
   </a>
 </div>
 
@@ -39,7 +39,8 @@ Each annual turns raw ESPN league records into a narrative experience: champions
 | Team-seasons | **138** | Finishes, records, points, power, and luck |
 | Matchups | **1,128** | Blowouts, nail-biters, fireworks, and title games |
 | Lineup records | **20,548** | Player leaders, single-game peaks, and carry share |
-| Transactions | **7,487** | Activity context and post-2018 event analysis |
+| Executed transaction items | **8,037** | Searchable add/drop detail from 2018 onward |
+| Advanced Wrapped modules | **14 per season** | Full Fantasy Genius graph suite for 2020-2025 |
 | Data checks | **0 core failures** | Audited season and route generation |
 
 ## The experience
@@ -49,6 +50,9 @@ Each annual turns raw ESPN league records into a narrative experience: champions
 - **Luck with a definition**: actual wins minus expected wins, calculated week by week.
 - **Games worth remembering**: title games, biggest blowouts, closest finishes, and combined-score extremes.
 - **Player impact**: scoring leaders, weekly eruptions, carry share, draft returns, and waiver gems.
+- **Transaction lab**: every covered add and drop, official trade counters, failed claims, and inferred roster movement.
+- **Expected value**: a four-week ESPN projection model pairs each pickup with actual starter points over the same window.
+- **Complete Wrapped suite**: management accuracy, lineup misses, roster age, injury burden, point origin, upsets, honors, and free-agent steals.
 - **Honest provenance**: pre-2018 ESPN draft and event-level transaction limits are disclosed in-product.
 - **Static by design**: no database, secret, server, or account is required to explore the archive.
 
@@ -57,8 +61,8 @@ Each annual turns raw ESPN league records into a narrative experience: champions
 ```mermaid
 flowchart LR
   A["Validated ESPN archive"] --> B["DuckDB history model"]
-  B --> C["Python story generator"]
-  C --> D["Compact season JSON"]
+  B --> C["Python story + transaction generators"]
+  C --> D["Typed presentation JSON"]
   D --> E["Next.js annual routes"]
   E --> F["Static export"]
   F --> G["GitHub Pages"]
